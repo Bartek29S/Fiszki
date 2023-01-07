@@ -1,5 +1,7 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.repository;
 
+import com.bsadurski.fiszki.entity.Authorisation;
+import com.bsadurski.fiszki.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,8 +32,6 @@ public class CategoryRepository {
     }
 
     /** @noinspection ConstantConditions*/
-    // IDE pisalo ze to moze zwrocic nulla a a ja wlasnie po
-    // to uzylem jakiegos exists aby tego nie robilo (udalo mi sie wylaczyc wbudowanym komentarzem)
     public boolean checkIfCategoryExisted(Category u) {
         return jdbcTemplate.queryForObject("SELECT EXISTS(SELECT  1 FROM test.categories  WHERE name=? AND userId=?)"
                 , Boolean.class, u.getName(), user.getUserId());

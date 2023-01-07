@@ -1,7 +1,8 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bsadurski.fiszki.entity.Category;
+import com.bsadurski.fiszki.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -10,8 +11,11 @@ import javax.validation.Valid;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    @Autowired
     CategoryService s;
+
+    public CategoryController(CategoryService s) {
+        this.s = s;
+    }
 
     @GetMapping("{categoryId}")
     public Category getCategory(@PathVariable String categoryId) { return s.getCategory(categoryId);

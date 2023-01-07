@@ -1,10 +1,13 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.entity;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 
+@Component()
 public class User {
 
     @NotEmpty(message = "nie moze byc puste")
@@ -15,6 +18,10 @@ public class User {
 
     @NotEmpty(message = "nie moze byc puste")
     private String email;
+
+    String password;
+
+    String role;
 
     @Id
     private String id;
@@ -49,6 +56,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public User() {

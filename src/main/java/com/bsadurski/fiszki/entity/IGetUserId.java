@@ -1,4 +1,4 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.entity;
 
 public interface IGetUserId {
     String getUserId();

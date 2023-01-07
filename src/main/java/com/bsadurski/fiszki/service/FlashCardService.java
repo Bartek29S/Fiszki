@@ -1,5 +1,10 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.service;
 
+import com.bsadurski.fiszki.trash.Code404And403ErrorCasterBuilder;
+import com.bsadurski.fiszki.entity.FlashCard;
+import com.bsadurski.fiszki.entity.FlashCardWithUserId;
+import com.bsadurski.fiszki.entity.IGetUserId;
+import com.bsadurski.fiszki.repository.FlashCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,11 +55,6 @@ public class FlashCardService {
         return repo.deleteFlashcard(id);
     }
 
-    // 1.FlashCardWithUserId nie jest beanem (patrz uwaga w FlashCardWithUserId) i temu chyba nie mozna dac tak wbudowanego mapera
-    // BeanPropertyRowMapper.newInstance
-    // 2.druga sprawa gdzie ten mapper ma byc (czy nie lepiej w repository)
-    // 3. (pozniejsza uwaga) Zrobilem interface IGetUserId wiec chyba nie ma sensu trzymac osobnej klasy i tego mapera
-    // i lepiej rozbudowac o ten interfes istniejaca klase
     private class FishCardRowMapper implements RowMapper<IGetUserId> {
 
         @Override

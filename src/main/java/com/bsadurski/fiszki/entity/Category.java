@@ -1,4 +1,4 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.entity;
 
 
 import org.springframework.data.annotation.Id;

@@ -1,10 +1,7 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.entity;
 
 import javax.validation.constraints.NotEmpty;
 
-// w przeciwienstwie do inych Klas (typu Encja) ta sie nie stala
-// beenem (strzelam ze beenami staja sie Klasy zwracane z metod
-//innych niektórych Beanów (Beanow jakiejs specyficznej adnotacji np Controller))
 public class  FlashCardWithUserId extends FlashCard implements IGetUserId {
 
     @NotEmpty(message = "nie moze byc puste")
@@ -19,5 +16,4 @@ public class  FlashCardWithUserId extends FlashCard implements IGetUserId {
     public void setUserId(String id) {
         this.userId = id;
     }
-
 }

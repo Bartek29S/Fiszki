@@ -1,7 +1,8 @@
-package com.bsadurski.fiszki;
+package com.bsadurski.fiszki.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bsadurski.fiszki.entity.FlashCard;
+import com.bsadurski.fiszki.service.FlashCardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,12 @@ import javax.validation.Valid;
 @RequestMapping("/fiszki")
 public class FlashCardController {
 
-    @Autowired
+
     FlashCardService s;
+
+    public FlashCardController(FlashCardService s) {
+        this.s = s;
+    }
 
     @GetMapping
     public Page<FlashCard> getAll(Pageable pageable) { return s.getAll(pageable);
