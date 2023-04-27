@@ -6,6 +6,7 @@ import com.bsadurski.fiszki.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController()
 @RequestMapping("/categories")
@@ -19,6 +20,10 @@ public class CategoryController {
 
     @GetMapping("{categoryId}")
     public Category getCategory(@PathVariable String categoryId) { return s.getCategory(categoryId);
+    }
+
+    @GetMapping()
+    public List<Category> getCategories() { return s.getCategories();
     }
 
     @PostMapping

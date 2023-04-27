@@ -16,7 +16,28 @@ public class FlashCard {
     @Id
     private String id;
 
-    private String userId;
+    private String userId = "0";
+
+    @NotEmpty(message = "nie moze byc puste")
+    private String categoryId;
+
+    private int learningStage;
+
+    public int getLearningStage() {
+        return learningStage;
+    }
+
+    public void setLearningStage(int learningStage) {
+        this.learningStage = learningStage;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getEnglishWord() {
         return englishWord;

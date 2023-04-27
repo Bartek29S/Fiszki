@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.annotation.PostConstruct;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service()
 public class FlashCardService {
@@ -32,26 +33,29 @@ public class FlashCardService {
                 .setSqlFragment(this.repo.getSecuritySqLFragment());
     }
 
-    public Page<FlashCard> getAll(Pageable pageable) { return repo.getAll(pageable);
+    public Page<FlashCard> getOnePage(Pageable pageable) { return repo.getOnePage(pageable);
+    }
+
+    public List<FlashCard> getAll() { return repo.getAll();
     }
 
     public int createFlashCard(FlashCard f) {
-        errorCaster.build().cast(f.getId());
+//        errorCaster.build().cast(f.getId());
         return repo.postFlashcard(f);
     }
 
     public FlashCard getFlashCard(String id) {
-        errorCaster.build().cast(id);
+//        errorCaster.build().cast(id);
         return repo.getFlashcard(id);
     }
 
     public int updateFlashCard(String id, FlashCard f) {
-        errorCaster.build().cast(id);
+//        errorCaster.build().cast(id);
         return repo.updateFlashcard(f, id);
     }
 
     public int deleteFlashCard(@PathVariable String id) {
-        errorCaster.build().cast(id);
+//        errorCaster.build().cast(id);
         return repo.deleteFlashcard(id);
     }
 

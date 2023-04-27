@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service()
 @RequestMapping("/categories")
@@ -28,8 +29,14 @@ public class CategoryService {
     }
 
     public Category getCategory(String categoryId) {
-        errorCaster.build().cast(categoryId);
+//        errorCaster.build().cast(categoryId);
         return repo.getCategory(categoryId);
+    }
+
+    public List<Category> getCategories() {
+        //Todo: ponizej walidacja
+//        errorCaster.build().cast(categoryId);
+        return repo.getCategories();
     }
 
 //    @Transactional

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController()
 @RequestMapping("/fiszki")
@@ -21,7 +22,11 @@ public class FlashCardController {
     }
 
     @GetMapping
-    public Page<FlashCard> getAll(Pageable pageable) { return s.getAll(pageable);
+    public Page<FlashCard> getOnePage(Pageable pageable) { return s.getOnePage(pageable);
+    }
+
+    @GetMapping("/all")
+    public List<FlashCard> getAll() { return s.getAll();
     }
 
     @PostMapping
