@@ -32,7 +32,7 @@ public class Code404And403ErrorCaster {
     private void errorHandler(String id) {
         List<IGetUserId> foundResources = jdbcTemplate.query(sqlFragment + id, resClass);
         if (foundResources.isEmpty()) throw new Error("404 - nie znaleziono zasobu");
-        if (foundResources.get(0).getUserId().compareTo(this.user.getUserId()) != 0) throw new Error("403 - mie masz uprawnień do zasobu");
+        if (foundResources.get(0).getUserId() != this.user.getUserId()) throw new Error("403 - mie masz uprawnień do zasobu");
     }
 
 }

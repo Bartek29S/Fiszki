@@ -1,5 +1,7 @@
 package com.bsadurski.fiszki.service;
 
+import com.bsadurski.fiszki.entity.History;
+import com.bsadurski.fiszki.repository.HistoryRepository;
 import com.bsadurski.fiszki.trash.Code404And403ErrorCasterBuilder;
 import com.bsadurski.fiszki.entity.FlashCard;
 import com.bsadurski.fiszki.entity.FlashCardWithUserId;
@@ -21,7 +23,10 @@ import java.util.List;
 public class FlashCardService {
 
     @Autowired
-    FlashCardRepository repo;
+    FlashCardRepository flashcardRepo;
+
+    @Autowired
+    HistoryRepository historyRepo;
 
     @Autowired
     Code404And403ErrorCasterBuilder errorCaster;
@@ -30,33 +35,49 @@ public class FlashCardService {
     @PostConstruct
     private void setErrorCaster() {
         errorCaster.setResourceMapper(new FlashCardService.FishCardRowMapper())
-                .setSqlFragment(this.repo.getSecuritySqLFragment());
+                .setSqlFragment(this.flashcardRepo.getSecuritySqLFragment());
     }
 
-    public Page<FlashCard> getOnePage(Pageable pageable) { return repo.getOnePage(pageable);
+    public Page<FlashCard> getOnePage(Pageable pageable) {
+        return flashcardRepo.getOnePage(pageable);
     }
 
-    public List<FlashCard> getAll() { return repo.getAll();
+    public List<FlashCard> getAll() {
+        return flashcardRepo.getAll();
     }
 
     public int createFlashCard(FlashCard f) {
+        int o = flashcardRepo.postFlashcard(f);
+        System.out.println(o);
 //        errorCaster.build().cast(f.getId());
-        return repo.postFlashcard(f);
+        History h = new History();
+        h.setOperationType("register");
+        h.setFlashcardId(o);
+        this.historyRepo.postHistory(h);
+        if (!this.flashcardRepo.isAnyFlashcardSetActive()) {
+            this.flashcardRepo.setFlashcardActive(o);
+        }
+        return o;
     }
 
     public FlashCard getFlashCard(String id) {
 //        errorCaster.build().cast(id);
-        return repo.getFlashcard(id);
+        return flashcardRepo.getFlashcard(id);
     }
 
     public int updateFlashCard(String id, FlashCard f) {
 //        errorCaster.build().cast(id);
-        return repo.updateFlashcard(f, id);
+        History h = new History();
+        h.setOperationType("update");
+        h.setId(Integer.parseInt(id));
+        h.setFlashcardId(Integer.parseInt(f.getId()));
+        this.historyRepo.postHistory(new History());
+        return flashcardRepo.updateFlashcard(f, id);
     }
 
     public int deleteFlashCard(@PathVariable String id) {
 //        errorCaster.build().cast(id);
-        return repo.deleteFlashcard(id);
+        return flashcardRepo.deleteFlashcard(id);
     }
 
     private class FishCardRowMapper implements RowMapper<IGetUserId> {
@@ -64,7 +85,7 @@ public class FlashCardService {
         @Override
         public FlashCardWithUserId mapRow(ResultSet rs, int rowNum) throws SQLException {
             FlashCardWithUserId o = new FlashCardWithUserId();
-            o.setUserId(rs.getString("userId"));
+            o.setUserId(rs.getInt("userId"));
             o.setPolishWord(rs.getString("polishWord"));
             return o;
         }

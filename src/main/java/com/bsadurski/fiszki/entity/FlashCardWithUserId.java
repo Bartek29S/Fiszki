@@ -5,15 +5,15 @@ import javax.validation.constraints.NotEmpty;
 public class  FlashCardWithUserId extends FlashCard implements IGetUserId {
 
     @NotEmpty(message = "nie moze byc puste")
-    String userId;
+    int userId;
 
     public FlashCardWithUserId() {
         super();
     }
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
-    public void setUserId(String id) {
+    public void setUserId(int id) {
         this.userId = id;
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Authorisation {
 
-    private String userId = "0";
+    private int userId = 0;
 
     private String name = "Bartek";
 
@@ -17,11 +17,11 @@ public class Authorisation {
        return  this.name + this.surname;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 }

@@ -18,8 +18,7 @@ public class FlashCard {
 
     private String userId = "0";
 
-    @NotEmpty(message = "nie moze byc puste")
-    private String categoryId;
+    private int categoryId;
 
     private int learningStage;
 
@@ -31,11 +30,11 @@ public class FlashCard {
         this.learningStage = learningStage;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
